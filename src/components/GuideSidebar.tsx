@@ -4,7 +4,7 @@ import { ScrollArea } from './ui/scroll-area';
 import { Sword, MapPin, AlertTriangle, Map } from 'lucide-react';
 import { cn } from './ui/utils';
 import { useSettingsStore } from '../stores/useSettingsStore';
-import { useNavigation } from '../contexts/NavigationContext';
+import { useRouter } from 'next/navigation';
 
 interface GuideSidebarProps {
   sections: TocEntry[];
@@ -30,7 +30,7 @@ const kindColors = {
 
 export function GuideSidebar({ sections, activeCode, className }: GuideSidebarProps) {
   const showJapanese = useSettingsStore((state) => state.showJapanese);
-  const { navigateTo } = useNavigation();
+  const router = useRouter();
   
   // Group sections by arc
   const storySections = sections.filter(s => s.kind === 'story');
@@ -67,7 +67,7 @@ export function GuideSidebar({ sections, activeCode, className }: GuideSidebarPr
                   return (
                     <button
                       key={section.code}
-                      onClick={() => navigateTo('guide', section.code)}
+                      onClick={() => router.push(`/guide/${section.code}`)}
                       className={cn(
                         'w-full text-left block rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-accent',
                         isActive && 'bg-accent border-l-2 border-primary'

@@ -58,7 +58,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "dev:vite": "vite",
-    "build:vite": "vite build"
+    "typecheck": "tsc --noEmit"
   }
 }

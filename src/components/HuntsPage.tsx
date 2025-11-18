@@ -1,4 +1,3 @@
-import { getMarkSections, buildGuideSectionFull } from '../lib/guide-data';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { Checkbox } from './ui/checkbox';
@@ -7,9 +6,17 @@ import { useSettingsStore } from '../stores/useSettingsStore';
 import { useGamificationStore, XP_REWARDS } from '../stores/useGamificationStore';
 import { Sword, CheckCircle2, MapPin } from 'lucide-react';
 import { toast } from 'sonner@2.0.3';
+import type { GuideSectionFull, TocEntry } from '../domain/guide';
 
-export function HuntsPage() {
-  const markSections = getMarkSections();
+interface HuntsPageProps {
+  markSections: TocEntry[];
+  buildGuideSectionFull: (code: string) => GuideSectionFull | null;
+}
+
+export function HuntsPage({
+  markSections,
+  buildGuideSectionFull,
+}: HuntsPageProps) {
   const showJapanese = useSettingsStore((state) => state.showJapanese);
   const currentPlaythroughId = useSettingsStore((state) => state.currentPlaythroughId);
   const { toggleItem, isItemComplete } = useChecklistStore();

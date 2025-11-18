@@ -1,10 +1,13 @@
-import { getWalkthroughMeta } from '../lib/guide-data';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { BookOpen, User, Calendar, GitBranch } from 'lucide-react';
+import type { WalkthroughMeta } from '../domain/guide';
 
-export function AboutPage() {
-  const meta = getWalkthroughMeta();
+interface AboutPageProps {
+  meta: WalkthroughMeta;
+}
+
+export function AboutPage({ meta }: AboutPageProps) {
 
   return (
     <div className="container max-w-4xl py-8 px-4 space-y-6">

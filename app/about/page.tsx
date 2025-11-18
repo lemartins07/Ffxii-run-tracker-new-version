@@ -1,16 +1,10 @@
 "use client";
 
-import { Dashboard } from "@/components/Dashboard";
+import { AboutPage } from "@/components/AboutPage";
 import { useGuideData } from "@/lib/useGuideData";
 
-export default function HomePage() {
-  const {
-    loading,
-    error,
-    storySections,
-    markSections,
-    lootSections,
-  } = useGuideData();
+export default function AboutRoute() {
+  const { loading, error, data } = useGuideData();
 
   if (loading) {
     return (
@@ -20,7 +14,7 @@ export default function HomePage() {
     );
   }
 
-  if (error) {
+  if (error || !data) {
     return (
       <div className="h-full flex items-center justify-center">
         <p>Failed to load guide data.</p>
@@ -28,12 +22,6 @@ export default function HomePage() {
     );
   }
 
-  return (
-    <Dashboard
-      storySections={storySections}
-      markSections={markSections}
-      lootSections={lootSections}
-    />
-  );
+  return <AboutPage meta={data.meta} />;
 }
 

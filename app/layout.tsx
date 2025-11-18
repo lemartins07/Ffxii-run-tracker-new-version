@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import "../src/index.css";
+import { AppShell } from "./AppShell";
 
 export const metadata = {
   title: "FFXII Run Tracker",
@@ -13,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-background">{children}</body>
+      <body className="bg-background">
+        <AppShell>{children}</AppShell>
+      </body>
     </html>
   );
 }

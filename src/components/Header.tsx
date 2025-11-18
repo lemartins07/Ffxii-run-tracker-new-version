@@ -2,11 +2,11 @@ import { Moon, Sun, Languages, Menu } from 'lucide-react';
 import { Button, buttonVariants } from './ui/button';
 import { useSettingsStore } from '../stores/useSettingsStore';
 import { useGamificationStore } from '../stores/useGamificationStore';
-import { useNavigation } from '../contexts/NavigationContext';
 import { Badge } from './ui/badge';
 import { Progress } from './ui/progress';
 import { PlaythroughManager } from './PlaythroughManager';
 import { cn } from './ui/utils';
+import Link from 'next/link';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,7 +22,6 @@ interface HeaderProps {
 export function Header({ onMenuClick }: HeaderProps) {
   const { theme, toggleTheme, showJapanese, toggleJapanese, currentPlaythroughId } = useSettingsStore();
   const { getStats } = useGamificationStore();
-  const { navigateTo } = useNavigation();
   const stats = getStats(currentPlaythroughId);
 
   const xpToNextLevel = ((stats.level) * 100) - stats.xp;
@@ -43,7 +42,10 @@ export function Header({ onMenuClick }: HeaderProps) {
             </Button>
           )}
           
-          <button onClick={() => navigateTo('dashboard')} className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+          <Link
+            href="/"
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+          >
             <div className="size-8 bg-gradient-to-br from-amber-500 to-orange-600 rounded flex items-center justify-center">
               <span className="text-white">XII</span>
             </div>
@@ -51,7 +53,7 @@ export function Header({ onMenuClick }: HeaderProps) {
               <div className="font-semibold">FFXII Guide</div>
               <div className="text-xs text-muted-foreground">Complete Walkthrough</div>
             </div>
-          </button>
+          </Link>
         </div>
 
         <div className="hidden md:flex items-center gap-3">
@@ -102,18 +104,18 @@ export function Header({ onMenuClick }: HeaderProps) {
               Menu
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
-              <DropdownMenuItem onClick={() => navigateTo('dashboard')}>
-                Dashboard
+              <DropdownMenuItem asChild>
+                <Link href="/">Dashboard</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigateTo('guide')}>
-                Guide
+              <DropdownMenuItem asChild>
+                <Link href="/guide">Guide</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigateTo('hunts')}>
-                Hunts
+              <DropdownMenuItem asChild>
+                <Link href="/hunts">Hunts</Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => navigateTo('about')}>
-                About
+              <DropdownMenuItem asChild>
+                <Link href="/about">About</Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

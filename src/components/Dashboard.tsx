@@ -4,20 +4,25 @@ import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { useSettingsStore } from '../stores/useSettingsStore';
 import { useGamificationStore } from '../stores/useGamificationStore';
-import { useChecklistStore } from '../stores/useChecklistStore';
-import { useNavigation } from '../contexts/NavigationContext';
-import { getStorySections, getMarkSections, getLootSections } from '../lib/guide-data';
 import { Trophy, Map, Sword, AlertTriangle, Zap, ChevronRight, Award } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import type { TocEntry } from '../domain/guide';
 
-export function Dashboard() {
+interface DashboardProps {
+  storySections: TocEntry[];
+  markSections: TocEntry[];
+  lootSections: TocEntry[];
+}
+
+export function Dashboard({
+  storySections,
+  markSections,
+  lootSections,
+}: DashboardProps) {
+  const router = useRouter();
   const currentPlaythroughId = useSettingsStore((state) => state.currentPlaythroughId);
   const { getStats } = useGamificationStore();
-  const { navigateTo } = useNavigation();
   const stats = getStats(currentPlaythroughId);
-
-  const storySections = getStorySections();
-  const markSections = getMarkSections();
-  const lootSections = getLootSections();
 
   const xpToNextLevel = ((stats.level) * 100) - stats.xp;
   const xpProgress = (stats.xp % 100);
@@ -109,7 +114,7 @@ export function Dashboard() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Button onClick={() => navigateTo('guide', 'wt01a')} className="w-full">
+            <Button onClick={() => router.push('/guide/wt01a')} className="w-full">
               <span className="flex items-center gap-2">
                 Start Guide
                 <ChevronRight className="size-4" />
@@ -129,7 +134,7 @@ export function Dashboard() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Button onClick={() => navigateTo('hunts')} variant="outline" className="w-full">
+            <Button onClick={() => router.push('/hunts')} variant="outline" className="w-full">
               <span className="flex items-center gap-2">
                 View Hunts
                 <ChevronRight className="size-4" />

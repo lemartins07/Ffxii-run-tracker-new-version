@@ -1,16 +1,11 @@
 "use client";
 
-import { Dashboard } from "@/components/Dashboard";
+import { HuntsPage } from "@/components/HuntsPage";
 import { useGuideData } from "@/lib/useGuideData";
 
-export default function HomePage() {
-  const {
-    loading,
-    error,
-    storySections,
-    markSections,
-    lootSections,
-  } = useGuideData();
+export default function HuntsRoute() {
+  const { loading, error, markSections, buildGuideSectionFull } =
+    useGuideData();
 
   if (loading) {
     return (
@@ -29,10 +24,9 @@ export default function HomePage() {
   }
 
   return (
-    <Dashboard
-      storySections={storySections}
+    <HuntsPage
       markSections={markSections}
-      lootSections={lootSections}
+      buildGuideSectionFull={buildGuideSectionFull}
     />
   );
 }
