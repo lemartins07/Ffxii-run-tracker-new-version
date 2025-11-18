@@ -1,11 +1,12 @@
 import { Moon, Sun, Languages, Menu } from 'lucide-react';
-import { Button } from './ui/button';
+import { Button, buttonVariants } from './ui/button';
 import { useSettingsStore } from '../stores/useSettingsStore';
 import { useGamificationStore } from '../stores/useGamificationStore';
 import { useNavigation } from '../contexts/NavigationContext';
 import { Badge } from './ui/badge';
 import { Progress } from './ui/progress';
 import { PlaythroughManager } from './PlaythroughManager';
+import { cn } from './ui/utils';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -93,10 +94,12 @@ export function Header({ onMenuClick }: HeaderProps) {
           </Button>
 
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
-                Menu
-              </Button>
+            <DropdownMenuTrigger
+              className={cn(
+                buttonVariants({ variant: 'outline', size: 'sm' }),
+              )}
+            >
+              Menu
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-48">
               <DropdownMenuItem onClick={() => navigateTo('dashboard')}>

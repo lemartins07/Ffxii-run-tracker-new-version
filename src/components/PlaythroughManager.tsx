@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSettingsStore, Playthrough } from '../stores/useSettingsStore';
-import { Button } from './ui/button';
+import { Button, buttonVariants } from './ui/button';
 import {
   Dialog,
   DialogContent,
@@ -33,6 +33,7 @@ import { Label } from './ui/label';
 import { Badge } from './ui/badge';
 import { BookOpen, Plus, Check, Trash2, Edit2, ChevronDown } from 'lucide-react';
 import { toast } from 'sonner@2.0.3';
+import { cn } from './ui/utils';
 
 export function PlaythroughManager() {
   const { 
@@ -102,14 +103,17 @@ export function PlaythroughManager() {
   return (
     <>
       <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="gap-2 min-w-[200px] justify-between">
-            <div className="flex items-center gap-2 truncate">
-              <BookOpen className="size-4 shrink-0" />
-              <span className="truncate">{currentPlaythrough?.name || 'Select Run'}</span>
-            </div>
-            <ChevronDown className="size-4 shrink-0 opacity-50" />
-          </Button>
+        <DropdownMenuTrigger
+          className={cn(
+            buttonVariants({ variant: 'outline' }),
+            'gap-2 min-w-[200px] justify-between',
+          )}
+        >
+          <div className="flex items-center gap-2 truncate">
+            <BookOpen className="size-4 shrink-0" />
+            <span className="truncate">{currentPlaythrough?.name || 'Select Run'}</span>
+          </div>
+          <ChevronDown className="size-4 shrink-0 opacity-50" />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[300px]">
           <DropdownMenuLabel>Your Playthroughs</DropdownMenuLabel>
